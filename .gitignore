@@ -1,0 +1,7 @@
+build/
+dist/
+worker/.venv/
+worker/bench_results/
+__pycache__/
+*.pyc
+wheels/

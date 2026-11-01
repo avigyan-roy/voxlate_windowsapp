@@ -1,0 +1,24 @@
+# Voxlate worker — Windows 10 22H2 / Windows 11 x64, Python 3.11 (installed by setup_worker.ps1 via uv).
+# torch/torchaudio are installed first from the PyTorch index (CUDA 12.4 or CPU), see setup_worker.ps1.
+# OpenVoice is installed separately with --no-deps (its setup.py pins conflicting old packages).
+# setup_worker.ps1 installs requirements.lock.txt (known-good Windows resolve) first, then tops up from this file.
+numpy==1.26.4
+sounddevice==0.5.1
+soundfile==0.12.1
+soxr==0.5.0.post1
+librosa==0.10.2.post1
+psutil==6.1.0
+huggingface_hub==0.26.5
+silero-vad==5.1.2
+faster-whisper==1.1.0
+transformers==4.46.3
+sentencepiece==0.2.0
+# 1.1.1 is the only release; it is sdist-only (Cython). build_windows.ps1 prebuilds a cp311 wheel into wheels\
+IndicTransToolkit==1.1.1
+kokoro==0.9.4
+misaki[en]==0.9.4
+# spaCy model used by misaki's English G2P. Must be installed as a package: otherwise misaki calls
+# spacy.cli.download at runtime, which needs pip (absent in uv venvs) and exits the model-load thread.
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
+# OpenVoice converter runtime deps (subset actually imported by models/mel_processing/utils)
+scipy==1.14.1
